@@ -5,11 +5,11 @@ body {
 }
 
 .contract, .existing-contracts {
-  margin: 20px;
+  margin: 10px;
   width: 50%;
   padding: 40px;
-  border: 1px solid #ddd;
-  background-color: #fff;
+  border: .5px solid #ddd;
+  background-color: #F0F8FF;
 }
 
 h1 {
@@ -28,18 +28,18 @@ label {
 
 input[type="text"] {
   padding: 6px;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .button {
-  background-color: #f58427;
+  background-color: #DC143C;
   color: white;
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
   margin: 20px;
   padding: 9px 25px;
-  font-size: 14px;
+  font-size: 30px;
   letter-spacing: 1px;
   cursor: pointer;
 }

@@ -2,25 +2,38 @@ import {ethers} from 'ethers';
 
 const provider = new ethers.providers.Web3Provider(ethereum);
 
+let contractsToReturn = [];
+let keys = Object.keys(localStorage);
+let iterator = -1;
+
+const container = document.getElementById("container");
+
+if (localStorage.getItem('0') != null) {
+    for (let i = 0; i < keys.length; i++) {
+        container.innerHTML += localStorage.getItem(i.toString());
+    }
+}
+
 export default async function addContract(id, contract, arbiter, beneficiary, value) {
-  const buttonId = `approve-${id}`;
+    const buttonId = `approve-${id}`;
 
-  const container = document.getElementById("container");
-  container.innerHTML += createHTML(buttonId, arbiter, beneficiary, value);
+    const container = document.getElementById("container");
 
-  contract.on('Approved', () => {
-    document.getElementById(buttonId).className = "complete";
-    document.getElementById(buttonId).innerText = "✓ It's been approved!";
-  });
+    container.innerHTML += createHTML(buttonId, arbiter, beneficiary, value);
 
-  document.getElementById(buttonId).addEventListener("click", async () => {
-    const signer = provider.getSigner();
-    await contract.connect(signer).approve();
-  });
+    contract.on('Approved', () => {
+        document.getElementById(buttonId).className = "complete";
+        document.getElementById(buttonId).innerText = "✓ It's been approved!";
+    });
+
+    document.getElementById(buttonId).addEventListener("click", async () => {
+        const signer = provider.getSigner();
+        await contract.connect(signer).approve();
+    });
 }
 
 function createHTML(buttonId, arbiter, beneficiary, value) {
-  return `
+    const contractToReturn = `
     <div class="existing-contract">
       <ul className="fields">
         <li>
@@ -41,4 +54,8 @@ function createHTML(buttonId, arbiter, beneficiary, value) {
       </ul>
     </div>
   `;
+    contractsToReturn.push(contractToReturn);
+    iterator++;
+    localStorage.setItem(iterator.toString(), contractsToReturn[iterator]);
+    return localStorage.getItem(iterator.toString());
 }
